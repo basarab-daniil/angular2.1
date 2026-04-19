@@ -1,0 +1,85 @@
+==================================================
+DOMANDE - LAVORARE CON I VETTORI E IL DOM
+==================================================
+
+1. Come si dichiara un vettore in una classe Angular?
+Si dichiara specificando il tipo di dato seguito da due parentesi quadre. 
+Esempio: names: string[];
+
+2. Come lo puoi riempire?
+Si riempie assegnandogli una lista di valori racchiusi tra parentesi quadre, di solito all'interno del costruttore.
+Esempio: this.names = ['Ari', 'Carlos', 'Felipe', 'Nate'];
+
+3. Dato il seguente codice: @for (name of names; track name) { <li>{{name}}</li> }
+
+- Cos'è il tag <li>?
+E' un tag HTML standard che definisce un singolo elemento all'interno di una lista (List Item).
+
+- A cosa serve il simbolo @ ?
+Nei file HTML di Angular serve a introdurre un "blocco di controllo" (come @for o @if) per gestire la logica direttamente nel template.
+
+- Cos'è un elemento DOM?
+DOM significa Document Object Model. E' la struttura ad albero creata dal browser per disegnare la pagina web. Un elemento DOM e' un singolo pezzo di questa pagina (es. un paragrafo, un div, un tag li).
+
+- Cosa fa la stringa "name of names"?
+Comunica ad Angular di scorrere (iterare) tutto il vettore chiamato "names". Ad ogni giro del ciclo, prende l'elemento corrente e lo associa alla variabile "name".
+
+- Cos'è "names"?
+E' il vettore (array) che contiene la lista dei dati, dichiarato nella classe TypeScript.
+
+- Cosa fa let name (o semplicemente la variabile name in @for)?
+Rappresenta il singolo elemento che viene estratto dall'array in quel preciso momento del ciclo. E' una variabile temporanea che esiste solo dentro quel blocco.
+
+- Cosa visualizza la sintassi {{name}}?
+Stampa visivamente a schermo (sulla pagina web) il valore contenuto in quel momento nella variabile "name".
+
+4. Riscrivi il ciclo supponendo di avere un vettore che si chiama cars e usando una variabile di ciclo che si chiama c:
+
+@for (c of cars; track c) { 
+  <li>{{c}}</li>
+}
+
+
+==================================================
+DOMANDE - COMPONENTI PADRE E FIGLIO (@Input)
+==================================================
+
+RISPETTO AL COMPONENTE FIGLIO (user-item)
+
+1. A cosa serve il decoratore @Input?
+Serve ad abilitare una variabile del componente a ricevere dati dall'esterno (cioe' dal componente padre). Rende la variabile una "porta d'ingresso".
+
+2. Come si importa?
+Si aggiunge la parola Input all'interno delle parentesi graffe nell'istruzione di importazione di Angular, in cima al file TypeScript.
+Esempio: import { Component, Input } from '@angular/core';
+
+3. Come si associa a una variabile?
+Si scrive il decoratore immediatamente prima della dichiarazione della variabile.
+Esempio: @Input() name: string;
+
+
+RISPETTO AL COMPONENTE PADRE (user-list)
+
+4. Come si passa un valore a un componente figlio?
+Nel file HTML del componente padre, si richiama il selettore del figlio e si racchiude il nome della sua variabile @Input tra parentesi quadre [], assegnandole il valore desiderato.
+Esempio: <app-user-item [name]="nomeVariabile"></app-user-item>
+
+
+==================================================
+ESERCIZIO: RISCRITTURA DEL CODICE
+==================================================
+Vincoli:
+- Il componente figlio si chiama gionny (<app-gionny>)
+- La variabile di input del componente figlio si chiama pupa
+- Il vettore si chiama bravo
+- La variabile di ciclo si chiama bu
+
+Codice riscritto:
+
+<ul>
+  @for (bu of bravo; track bu) {
+    <li>
+      <app-gionny [pupa]="bu"></app-gionny>
+    </li>
+  }
+</ul>
